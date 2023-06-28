@@ -1,14 +1,12 @@
 # Homeworks
 
-Each chapter has some questions at the end; we call these "homeworks", because you should do the "work" at your "home". Make sense? It's one of the innovations of this book.
+숙제는 각 장에서 자료에 대한 지식을 굳히기 위해 사용될 수 있습니다. 많은 숙제는 운영 체제의 일부 측면을 모방하는 시뮬레이터를 실행하는 것에 기초합니다. 예를 들어 디스크 스케줄링 시뮬레이터는 다양한 디스크 스케줄링 알고리즘이 작동하는 방식을 이해하는 데 유용할 수 있습니다. 일부 다른 숙제들은 실제 시스템이 어떻게 작동하는지 탐구할 수 있게 해주는 짧은 프로그래밍 연습일 뿐입니다.
 
-Homeworks can be used to solidify your knowledge of the material in each of the chapters. Many homeworks are based on running a simulator, which mimic some aspect of an operating system. For example, a disk scheduling simulator could be useful in understanding how different disk scheduling algorithms work. Some other homeworks are just short programming exercises, allowing you to explore how real systems work.
+시뮬레이터의 기본 아이디어는 간단합니다. 아래의 각 시뮬레이터를 사용하면 문제를 생성하고 무한한 수의 문제에 대한 해결책을 얻을 수 있습니다. 일반적으로 다른 랜덤 시드를 사용하여 다른 문제를 생성할 수 있습니다. -c 플래그를 사용하면 정답이 계산됩니다(아마 직접 계산을 시도한 후에!).
 
-For the simulators, the basic idea is simple: each of the simulators below let you both generate problems and obtain solutions for an infinite number of problems. Different random seeds can usually be used to generate different problems; using the `-c` flag computes the answers for you (presumably after you have tried to compute them yourself!).
+아래에 포함된 각 숙제는 어떻게 해야 하는지 설명하는 README 파일을 가지고 있습니다. 이전에, 이 자료는 장 자체에 포함되어 있었지만, 그것은 책을 너무 길게 만들었습니다. 이제 이 책에 남아 있는 것은 시뮬레이터로 답하고 싶은 질문뿐입니다. 코드를 실행하는 방법에 대한 자세한 내용은 README에 모두 있습니다.
 
-Each homework included below has a README file that explains what to do. Previously, this material had been included in the chapters themselves, but that was making the book too long. Now, all that is left in the book are the questions you might want to answer with the simulator; the details on how to run code are all in the README. 
-
-Thus, your task: read a chapter, look at the questions at the end of the chapter, and try to answer them by doing the homework. Some require a simulator (written in Python); those are available by below. Some others require you to write some code. At this point, reading the relevant README is a good idea. Still others require some other stuff, like writing C code to accomplish some task.
+그러므로, 여러분의 과제는 한 장을 읽고, 그 장의 끝에 있는 질문들을 보고, 숙제를 함으로써 그 질문들에 답하도록 노력하는 것입니다. 일부는 시뮬레이터(Python으로 작성)가 필요하며, 아래에서 사용할 수 있습니다. 코드를 작성해야 하는 경우도 있습니다. 이 시점에서 관련 README를 읽는 것이 좋습니다. 여전히 다른 것들은 C 코드를 작성하는 것과 같은 몇 가지 다른 것들을 필요로 합니다.
 
 To use these, the best thing to do is to clone the homeworks. For example:
 ```sh
