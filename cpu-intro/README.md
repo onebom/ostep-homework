@@ -1,9 +1,7 @@
 
 # Overview
 
-This program, called process-run.py, allows you to see how the state of a
-process state changes as it runs on a CPU. As described in the chapter, 
-processes can be in a few different states:
+process-run.py 이라고 하는 이 프로그램을 사용하면 CPU에서 실행될 때 프로세스 상태가 어떻게 변하는지 확인할 수 있습니다. 이 장에서 설명한 바와 같이 프로세스는 몇 가지 다른 상태에 있을 수 있습니다:
 
 ```sh
 RUNNING - the process is using the CPU right now
@@ -14,8 +12,7 @@ BLOCKED - the process is waiting on I/O
 DONE    - the process is finished executing
 ```
 
-In this homework, we'll see how these process states change as a program
-runs, and thus learn a little bit better how these things work.
+이 숙제에서는 프로그램이 실행됨에 따라 이러한 프로세스 상태가 어떻게 변화하는지 살펴보고 이러한 프로세스 상태가 어떻게 작동하는지에 대해 조금 더 잘 배울 것입니다.
 
 To run the program and get its options, do this:
 
@@ -56,17 +53,13 @@ Options:
                         (otherwise stats are not printed)
 ```
 
-The most important option to understand is the PROCESS_LIST (as specified by
-the -l or --processlist flags) which specifies exactly what each running
-program (or 'process') will do. A process consists of instructions, and each
-instruction can just do one of two things: 
-- use the CPU 
-- issue an IO (and wait for it to complete)
+이해해야 할 가장 중요한 옵션은 PROCESS_LIST(-l 또는 --processlist 플래그로 지정됨)이며, 실행 중인 각 프로그램(또는 'process')이 수행할 작업을 정확히 지정합니다. 프로세스는 명령어로 구성되며 각 명령어는 다음 두 가지 중 하나만 수행할 수 있습니다:
+1. use the CPU 
+2. issue an IO (and wait for it to complete)
 
-When a process uses the CPU (and does no IO at all), it should simply
-alternate between RUNNING on the CPU or being READY to run. For example, here
-is a simple run that just has one program being run, and that program only
-uses the CPU (it does no IO).
+프로세스가 CPU를 사용하고 IO가 전혀 없는 경우에는 CPU에서 실행 중인지 실행 준비 중인지를 번갈아 선택해야 합니다. 예를 들어, 프로그램이 하나만 실행되고 해당 프로그램은 CPU만 사용하는 간단한 실행이 있습니다(IO는 사용하지 않음).
+
+아래 코드에서 우리는 "5:100"으로 프로세스를 지정합니다.. 즉, 5개의 명령으로 구성되어야 하며 각 명령이 CPU 명령일 가능성은 100%입니다.
 
 ```sh
 prompt> ./process-run.py -l 5:100 
@@ -85,12 +78,7 @@ Important behaviors:
 prompt> 
 ```
 
-Here, the process we specified is "5:100" which means it should consist of 5
-instructions, and the chances that each instruction is a CPU instruction are
-100%. 
-
-You can see what happens to the process by using the -c flag, which computes the
-answers for you:
+-c 플래그를 사용하여 프로세스에 어떤 일이 발생하는지 확인할 수 있습니다. -c 플래그는 다음과 같은 답을 계산합니다:
 
 ```sh
 prompt> ./process-run.py -l 5:100 -c
@@ -102,9 +90,7 @@ Time     PID: 0        CPU        IOs
   5     RUN:cpu          1
 ```
 
-This result is not too interesting: the process is simple in the RUN state and
-then finishes, using the CPU the whole time and thus keeping the CPU busy the
-entire run, and not doing any I/Os.
+이 결과는 그다지 흥미롭지 않습니다. 프로세스가 RUN 상태에서 단순한 다음 종료됩니다. CPU를 계속 사용하므로 실행 내내 CPU를 사용하고 I/O를 전혀 수행하지 않습니다
 
 Let's make it slightly more complex by running two processes:
 
@@ -130,8 +116,7 @@ Important behaviors:
   After IOs, the process issuing the IO will run LATER (when it is its turn)
 ```
 
-In this case, two different processes run, each again just using the CPU. What
-happens when the operating system runs them? Let's find out:
+이 경우 두 개의 서로 다른 프로세스가 실행되며, 각각 CPU만 사용합니다. 운영 체제에서 이러한 기능을 실행하면 어떻게 됩니까? 확인해 보겠습니다:
 
 ```sh
 prompt> ./process-run.py -l 5:100,5:100 -c
@@ -148,15 +133,9 @@ Time     PID: 0     PID: 1        CPU        IOs
  10        DONE    RUN:cpu          1
 ```
 
-As you can see above, first the process with "process ID" (or "PID") 0 runs,
-while process 1 is READY to run but just waits until 0 is done. When 0 is
-finished, it moves to the DONE state, while 1 runs. When 1 finishes, the trace
-is done.
+위에서 볼 수 있듯이 먼저 "process ID" (or "PID")가 0인 프로세스가 실행되고, process 1은 실행 준비가 되었지만 0이 완료될 때까지 기다립니다. 0이 완료되면 DONE 상태로 이동하고 1이 실행됩니다. 1이 완료되면 추적이 완료됩니다.
 
-Let's look at one more example before getting to some questions. In this
-example, the process just issues I/O requests. We specify here that I/Os take 5
-time units to complete with the flag -L.
-
+몇 가지 질문을 하기 전에 한 가지 예를 더 살펴보겠습니다. 이 예에서는 프로세스가 I/O 요청만 실행합니다. 여기서 I/O가 -L 플래그로 완료하는 데 5개의 시간 단위가 소요되도록 지정합니다.
 ```sh
 prompt> ./process-run.py -l 3:0 -L 5
 Produce a trace of what would happen when you run these processes:
@@ -172,8 +151,7 @@ Important behaviors:
   System will switch when the current process is FINISHED or ISSUES AN IO
   After IOs, the process issuing the IO will run LATER (when it is its turn)
 ```
-
-What do you think the execution trace will look like? Let's find out:
+운영 체제에서 이러한 기능을 실행하면 어떻게 됩니까? 확인해 보겠습니다:
 
 ```sh
 prompt> ./process-run.py -l 3:0 -L 5 -c
@@ -201,16 +179,10 @@ Time    PID: 0       CPU       IOs
  21*   RUN:io_done             1
 ```
 
-As you can see, the program just issues three I/Os. When each I/O is issued,
-the process moves to a BLOCKED state, and while the device is busy servicing
-the I/O, the CPU is idle.
+보시다시피 프로그램은 3개의 I/O만 실행합니다. 각 I/O가 실행되면 프로세스가 BLOCKED 상태로 이동하고 디바이스가 I/O를 서비스하는 동안 CPU가 유휴 상태가 됩니다
+I/O 완료를 처리하기 위해 CPU 작업이 하나 더 발생합니다. I/O 시작 및 완료를 처리하는 단일 지침은 특별히 현실적인 것이 아니라 단순성을 위해 여기에서 사용됩니다.
 
-To handle the completion of the I/O, one more CPU action takes place. Note
-that a single instruction to handle I/O initiation and completion is not
-particularly realistic, but just used here for simplicity.
-
-Let's print some stats (run the same command as above, but with the -p flag)
-to see some overall behaviors: 
+몇 가지 통계를 인쇄하여(위와 동일한 명령을 실행하지만 -p 플래그를 사용하여) 몇 가지 전반적인 동작을 확인합니다:
 
 ```sh
 Stats: Total Time 21
@@ -218,12 +190,8 @@ Stats: CPU Busy 6 (28.57%)
 Stats: IO Busy  15 (71.43%)
 ```
 
-As you can see, the trace took 21 clock ticks to run, but the CPU was
-busy less than 30% of the time. The I/O device, on the other hand, was
-quite busy. In general, we'd like to keep all the devices busy, as
-that is a better use of resources.
-
-There are a few other important flags:
+보시다시피 추적을 실행하는 데 21개의 클럭 틱이 필요했지만 CPU 사용량이 30% 미만이었습니다. 반면에 I/O 장치는 상당히 사용 중이었습니다. 일반적으로 리소스를 더 잘 사용할 수 있기 때문에 모든 장치를 사용 중으로 유지하고 싶습니다.
+몇 가지 다른 중요한 플래그가 있습니다:
 ```sh
   -s SEED, --seed=SEED  the random seed  
     this gives you way to create a bunch of different jobs randomly
